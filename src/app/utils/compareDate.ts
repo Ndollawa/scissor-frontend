@@ -1,0 +1,1 @@
+export const compareDate = (date:Date)=>new Date(date ).getUTCSeconds() >= new Date().getUTCSeconds()
