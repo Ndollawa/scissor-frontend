@@ -7,13 +7,13 @@ import { RootState } from '../stores/store';
 
  // Prepare the headers with token 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'http://localhost:3500',
+    baseUrl: 'https://scissor-backend-11sy.onrender.com',
     credentials: 'include',
     prepareHeaders:(headers,{getState}) =>{
         const token =(getState() as RootState).auth.token;
         //   headers.set("Content-Type","multipart/form-data")
         //   headers.set("Accepts","application/json")
-        //   headers.set("Accepts","multiparts/form-data")https://scissor-backend-11sy.onrender.com
+        //   headers.set("Accepts","multiparts/form-data")
         // console.log(token)
         if(token){
             headers.set("authorization",`Bearer ${token}`)
