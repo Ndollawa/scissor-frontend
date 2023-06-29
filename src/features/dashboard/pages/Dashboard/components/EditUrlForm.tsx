@@ -25,7 +25,6 @@ interface modalDataProps {
   } 
   }
 const EditUrlModal = ({modalData:{data,showModal}}:modalDataProps) => {
-  console.log(data)
   const [originalURL, setOriginalURL] = useState(data?.originalURL!)
     // const [shortUrl, setShortUrl] = useState(data?.shortURL!)
     const [customUrl, setCustomUrl] = useState('')

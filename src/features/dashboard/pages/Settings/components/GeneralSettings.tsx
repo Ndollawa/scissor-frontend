@@ -54,7 +54,7 @@ const data ={
   }
 try{
   const res = await generalSettings({_id,data}).unwrap()
-  if (res.data.message=== 'success'){
+  if (res.data.message === 'success'){
 dispatch(setAppGeneralSetting(data))
 
 showToast('success',"Settings Updated successfully!")
