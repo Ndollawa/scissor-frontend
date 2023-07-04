@@ -174,6 +174,7 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
         setSuccess(true);
         setUser('');
         setEmail('');
+        setFullName('');
         setPwd('');
         setMatchPwd('');
    }
@@ -240,8 +241,8 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                                                 aria-describedby="uidnote"
                                                 onChange={(e)=> setFullName(e.target.value)}
                                                 onFocus={()=>setFullNameFocus(true)}
-                                                onBlur={()=>{setFullNameFocus(false); checkUser(fullName);}}
-                                                value={user}
+                                                onBlur={()=>{setFullNameFocus(false); checkFullName(fullName);}}
+                                                value={fullName}
                                                 />
                                             </div>
                                         </div>
