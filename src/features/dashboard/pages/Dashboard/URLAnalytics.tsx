@@ -79,7 +79,6 @@ let dailyTraffic = 0;
 let weeklyTraffic = 0;
 let monthlyTraffic = 0;
 
-console.log(currentDay)
   url && url?.traffic?.forEach((t:any)=>{
  const entryDate = t?.createdAt;
   if (entryDate?.getDate() === currentDay) {

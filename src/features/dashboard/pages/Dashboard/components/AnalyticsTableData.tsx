@@ -11,7 +11,7 @@ const AnalyticsTableData = ({url,index}:any) => {
 useEffect(() => {
 
   destroyDataTables($('#dataTable'))
-    initDataTables($('#dataTable'),"Link Report")
+    initDataTables($('#dataTable'),"Link Analytics Report")
   return () => {
    destroyDataTables($('#dataTable'))
   }

@@ -86,14 +86,14 @@ const UrlTableData = ({url,index,showEditForm}:any) => {
     }
 // 
 
-useEffect(() => {
+// useEffect(() => {
 
-  destroyDataTables($('#dataTable'))
-    initDataTables($('#dataTable'),"Generated Links")
-  return () => {
-   destroyDataTables($('#dataTable'))
-  }
-}, [url])
+//   destroyDataTables($('#dataTable'))
+//     initDataTables($('#dataTable'),"Generated Links")
+//   return () => {
+//    destroyDataTables($('#dataTable'))
+//   }
+// }, [url])
 const showDetails  = useMemo(()=>{ return async(shortURL:string)=>{
    // Generate QR code data URL
    const qrcodeDataUrl = await QRCode.toDataURL(shortURL);
