@@ -95,7 +95,6 @@ useEffect(() => {
   }
 }, [url])
 const showDetails  = useMemo(()=>{ return async(shortURL:string)=>{
-  console.log(shortURL)
    // Generate QR code data URL
    const qrcodeDataUrl = await QRCode.toDataURL(shortURL);
    setQRCodeDataUrl(qrcodeDataUrl);

@@ -1,5 +1,5 @@
-import {useDispatch, useSelector } from 'react-redux';
-import React, {useRef,useState,useEffect,useDeferredValue, FormEvent, FormEventHandler } from 'react';
+import { useSelector } from 'react-redux';
+import React, {useRef,useState,useEffect, FormEvent, FormEventHandler } from 'react';
 import { Link } from 'react-router-dom';
 import {GoKey} from 'react-icons/go';
 import {GrMail} from 'react-icons/gr';
@@ -14,6 +14,7 @@ import showToast from '../../app/utils/hooks/showToast';
 
 // username regex must start with a lowercase or uppercase laters and must be followed by lower or uppercase or digits,- or _ of 3 to 23 characters
 const USER_REGEX = /^[a-zA-Z][a-zA-z0-9-_]{3,23}$/;
+const FULLNAME_REGEX = /^[a-zA-Z][a-zA-z]{3,250}$/;
 // requires atleast 0ne uppercase, lowercase,digit, special character and a total of 8 t0 24 characters
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
@@ -34,6 +35,7 @@ const Register:React.FC = () => {
     const {logo} = useSelector(useSiteImages);
 
 
+const fullNameRef = useRef <HTMLInputElement>(null);
 const userRef = useRef <HTMLInputElement>(null);
 const emailRef = useRef <HTMLInputElement>(null);
 const errRef = useRef <HTMLInputElement>(null);
@@ -50,6 +52,9 @@ const [checkDuplicateUser,{
 }] = useCheckDuplicateUserMutation();
 const [user,setUser] = useState('');
 const [validName,setValidName] = useState(false);
+const [fullName,setFullName] = useState('');
+const [validFullName,setValidFullName] = useState(false);
+const [fullNameFocus,setFullNameFocus] = useState(false);
 const [userFocus,setUserFocus] = useState(false);
 
 const [email,setEmail] = useState('');
@@ -70,9 +75,6 @@ const [success,setSuccess] = useState(false);
 
 const [showPassword,setShowPassword] = useState(false);
 const [showCPassword,setShowCPassword] = useState(false);
-const deferredEmail = useDeferredValue(email)
-const deferredUsername = useDeferredValue(user)
-const dispatch = useDispatch()
 const [register,{
     isLoading,
     data,
@@ -80,12 +82,12 @@ const [register,{
     isSuccess
 }] = useRegisterMutation();
 useEffect(()=>{
-    userRef.current?.focus();
+    fullNameRef.current?.focus();
 }, [])
 
 useEffect(()=>{
     setMsg(undefined)
-}, [user,email,pwd,matchPwd]);
+}, [user,email,pwd,matchPwd,fullName]);
  const checkDuplicate = async (key:string) =>{
   const data ={ user:key }
        await checkDuplicateUser({data})
@@ -101,6 +103,10 @@ useEffect(()=>{
     }
     }
 
+const checkFullName = (key:string)=>{
+    const result = FULLNAME_REGEX.test(key);
+   setValidFullName(result)   
+}
 const checkUser = (key:string)=>{
     const result = USER_REGEX.test(key);
    setValidName(result)
@@ -151,7 +157,7 @@ const handleShowPassword = function(type:string){
 
 const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
     e.preventDefault();
-        await register({username:user,email,password:pwd})
+        await register({username:user,fullName,email,password:pwd})
             if(error){
                 setMsg({type:'danger',msg:'No Server Response'});
             }else if(data?.status === 400){
@@ -219,6 +225,28 @@ const handleRegistration:FormEventHandler = async (e:FormEvent) =>{
                                     </button>
                                     </>
                                 </div>} 
+                                        <div className="form-group"><label className="mb-1"><strong>Full Name</strong></label>
+                                            <div className={validFullName? "input-group input-success":"input-group input-default"}>
+                                            <span className="input-group-text"><FaUser fontSize='1rem'/></span>
+                                                
+                                                <input 
+                                                type="text" 
+                                                className="form-control" 
+                                                placeholder="Full Name"
+                                                autoComplete='off'
+                                                ref={fullNameRef}
+                                                required
+                                                aria-invalid ={validFullName ? "false": "true"}
+                                                aria-describedby="uidnote"
+                                                onChange={(e)=> setFullName(e.target.value)}
+                                                onFocus={()=>setFullNameFocus(true)}
+                                                onBlur={()=>{setFullNameFocus(false); checkUser(fullName);}}
+                                                value={user}
+                                                />
+                                            </div>
+                                        </div>
+                                        {(fullNameFocus && !validFullName) && <p className='alert alert-danger' id='uidnote'>Must be at least 3  characters.<br/>Must begin with  a letter</p>}
+                                      
                                         <div className="form-group"><label className="mb-1"><strong>Username</strong></label>
                                             <div className={validName? "input-group input-success":"input-group input-default"}>
                                             <span className="input-group-text"><FaRegUserCircle fontSize='1rem'/></span>

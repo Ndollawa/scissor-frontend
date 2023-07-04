@@ -1,10 +1,9 @@
-import React,{useState,useEffect,useMemo} from 'react'
+import React,{useState,useEffect} from 'react'
 import MainBody from '../../components/MainBody'
 import CreateUrlModal from './components/CreateUrlForm'
 import EditUrlForm from './components/EditUrlForm'
 import { useDispatch,useSelector } from 'react-redux'
 import { useGetUrlQuery } from './urlShortenerApiSlice'
-import { setPreloader } from '../../components/PreloaderSlice'
 import pageProps from '../../../../app/utils/props/pageProps'
 import UrlTableData from './components/UrlTableData'
 import { selectCurrentUser } from '../../../auth/authSlice'
@@ -15,6 +14,8 @@ import { BiLinkAlt } from 'react-icons/bi'
 import { FaUsers } from 'react-icons/fa'
 import { MdTraffic } from 'react-icons/md'
 import { HiUsers } from 'react-icons/hi2'
+import initDataTables, { destroyDataTables } from '../../../../app/utils/initDataTables'
+
 
 
 
@@ -58,11 +59,12 @@ let tableContent = urls && urls?.map((url:urlProps ,i:number) => <UrlTableData k
 showEditForm={showEditForm} />
 )
 
+
 const currentDate = new Date();
-const currentDay = currentDate.getDate();
-const currentMonth = currentDate.getMonth();
-const currentYear = currentDate.getFullYear();
-const currentWeekStart = new Date(currentDate.setDate(currentDay - currentDate.getDay()));
+const currentDay = currentDate?.getDate();
+const currentMonth = currentDate?.getMonth();
+const currentYear = currentDate?.getFullYear();
+const currentWeekStart = new Date(currentDate?.setDate(currentDay - currentDate?.getDay()));
 const currentMonthStart = new Date(currentYear, currentMonth, 1);
 
 let dailyTraffic = 0;
@@ -70,9 +72,9 @@ let weeklyTraffic = 0;
 let monthlyTraffic = 0;
 
 
-  urls && urls?.forEach((url:urlProps) => url.traffic.forEach((t:any)=>{
+  urls && urls?.forEach((url:urlProps) => url?.traffic?.forEach((t:any)=>{
  const entryDate = t?.createdAt;
-  if (entryDate.getDate() === currentDay) {
+  if (entryDate?.getDate() === currentDay) {
     dailyTraffic++;
   }
   if (
@@ -82,14 +84,21 @@ let monthlyTraffic = 0;
     weeklyTraffic++;
   }
   if (
-    entryDate.getMonth() === currentMonth &&
-    entryDate.getFullYear() === currentYear
+    entryDate?.getMonth() === currentMonth &&
+    entryDate?.getFullYear() === currentYear
   ) {
     monthlyTraffic++;
   }
 }));
 
+useEffect(() => {
 
+  destroyDataTables($('#dataTable'))
+    initDataTables($('#dataTable'),"Generated Links")
+  return () => {
+   destroyDataTables($('#dataTable'))
+  }
+}, [urls])
 
  return (
 	<>

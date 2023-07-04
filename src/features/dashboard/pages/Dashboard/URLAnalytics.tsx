@@ -17,6 +17,9 @@ import { BiLinkAlt } from 'react-icons/bi'
 import { FaUsers } from 'react-icons/fa'
 import { MdTraffic } from 'react-icons/md'
 import { HiUsers } from 'react-icons/hi2'
+import initDataTables, { destroyDataTables } from '../../../../app/utils/initDataTables'
+
+
 
 
 
@@ -67,9 +70,9 @@ const dataPoints = [];
 
 for (let i = 6; i >= 0; i--) {
   const date = new Date(currentDate);
-  date.setDate(currentDate.getDate() - i);
+  date?.setDate(currentDate?.getDate() - i);
 
-  const formattedDate = formatDate(date); // Helper function to format date as required
+  const formattedDate =  new Date(date).toLocaleString('en-US', { day: 'numeric', month: 'short', year:'numeric' })//formatDate(date); Helper function to format date as required
 
   const trafficCount = url?.traffic?.filter((entry:any) => {
     return entry.date.toDateString() === date.toDateString();
@@ -78,43 +81,27 @@ for (let i = 6; i >= 0; i--) {
   labels.push(formattedDate);
   dataPoints.push(trafficCount);
 }
-
-console.log('Labels:', labels);
-console.log('Data Points:', dataPoints);
-
 // Helper function to format date as 'YYYY-MM-DD'
 function formatDate(date:Date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const day = String(date?.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
 
-	useEffect(() => {
-       
-        //         Chart.LineController = Chart.controllers.line.extend({
-        //             draw: function () {
-        //                 draw.apply(this, arguments);
-        //                 let nk = this.chart.chart.ctx;
-        //                 let _stroke = nk.stroke;
-        //                 nk.stroke = function () {
-        //                     nk.save();
-        //                     nk.shadowColor = 'rgba(255, 0, 0, .2)';
-        //                     nk.shadowBlur = 10;
-        //                     nk.shadowOffsetX = 0;
-        //                     nk.shadowOffsetY = 10;
-        //                     _stroke.apply(this, arguments)
-        //                     nk.restore();
-        //                 }
-        //             }
-        //         });
-        
-         
-		}, []) 
+
+    useEffect(() => {
+
+  destroyDataTables($('#dataTable'))
+    initDataTables($('#dataTable'),"Generated Links")
+  return () => {
+   destroyDataTables($('#dataTable'))
+  }
+}, [url])
 let tableContent = url && url?.traffic?.map((c:any ,i:number) => <AnalyticsTableData key={c?._id} url={c} index={i} />)
-const currentDay = currentDate.getDate();
-const currentMonth = currentDate.getMonth();
-const currentYear = currentDate.getFullYear();
+const currentDay = currentDate?.getDate();
+const currentMonth = currentDate?.getMonth();
+const currentYear = currentDate?.getFullYear();
 const currentWeekStart = new Date(currentDate.setDate(currentDay - currentDate.getDay()));
 const currentMonthStart = new Date(currentYear, currentMonth, 1);
 
@@ -123,9 +110,9 @@ let weeklyTraffic = 0;
 let monthlyTraffic = 0;
 
 
-  url && url.traffic.forEach((t:any)=>{
+  url && url?.traffic?.forEach((t:any)=>{
  const entryDate = t?.createdAt;
-  if (entryDate.getDate() === currentDay) {
+  if (entryDate?.getDate() === currentDay) {
     dailyTraffic++;
   }
   if (
@@ -135,8 +122,8 @@ let monthlyTraffic = 0;
     weeklyTraffic++;
   }
   if (
-    entryDate.getMonth() === currentMonth &&
-    entryDate.getFullYear() === currentYear
+    entryDate?.getMonth() === currentMonth &&
+    entryDate?.getFullYear() === currentYear
   ) {
     monthlyTraffic++;
   }

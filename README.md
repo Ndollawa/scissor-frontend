@@ -40,6 +40,8 @@ Scissor is a web application that provides a URL shortening service with custom 
 5. Update or delete existing shortened URLs as needed.
 
 [Visit app Frontend](https://scissors-psi.vercel.app)
+
+
 [Visit app Backend](https://scissor-backend-11sy.onrender.com)
 ## ScreenShots
 ![Home Page](src/images/screenshots/Screenshot(40).png)
