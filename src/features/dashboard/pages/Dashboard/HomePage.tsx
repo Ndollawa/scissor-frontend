@@ -91,14 +91,14 @@ let monthlyTraffic = 0;
   }
 }));
 
-useEffect(() => {
+// useEffect(() => {
 
-  destroyDataTables($('#dataTable'))
-    initDataTables($('#dataTable'),"Generated Links")
-  return () => {
-   destroyDataTables($('#dataTable'))
-  }
-}, [urls])
+//   destroyDataTables($('#dataTable'))
+//     initDataTables($('#dataTable'),"Generated Links")
+//   return () => {
+//    destroyDataTables($('#dataTable'))
+//   }
+// }, [])
 
  return (
 	<>

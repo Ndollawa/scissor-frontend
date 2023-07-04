@@ -1,11 +1,9 @@
-import React,{useState,useEffect,useMemo} from 'react'
+import React,{useEffect} from 'react'
 import MainBody from '../../components/MainBody'
 import { useSelector } from 'react-redux'
 import { useGetUrlQuery } from './urlShortenerApiSlice'
-import pageProps from '../../../../app/utils/props/pageProps'
 import AnalyticsTableData from './components/AnalyticsTableData'
 import { selectCurrentUser } from '../../../auth/authSlice'
-import { urlProps } from '../../../../app/utils/props/urlProps'
 import Breadcrum from '../../components/Breadcrum'
 import PageHeading from '../../components/PageHeading'
 import { useParams,useNavigate } from 'react-router-dom'
@@ -18,26 +16,6 @@ import { FaUsers } from 'react-icons/fa'
 import { MdTraffic } from 'react-icons/md'
 import { HiUsers } from 'react-icons/hi2'
 import initDataTables, { destroyDataTables } from '../../../../app/utils/initDataTables'
-
-
-
-
-
-
-
-
-// interface modalDataProps {
-//    data:{
-// 	_id:string | number;
-// 	originalURL: string;
-// 	user: string;
-// 	traffic:any;
-// 	shortURL: string;
-// 	clicks: number;
-// 	status: string;
-//   } | null,
-//   showModal:boolean,
-// }
 
 
 
@@ -75,7 +53,7 @@ for (let i = 6; i >= 0; i--) {
   const formattedDate =  new Date(date).toLocaleString('en-US', { day: 'numeric', month: 'short', year:'numeric' })//formatDate(date); Helper function to format date as required
 
   const trafficCount = url?.traffic?.filter((entry:any) => {
-    return entry.date.toDateString() === date.toDateString();
+    return entry?.date?.toDateString() === date?.toDateString();
   }).length;
 
   labels.push(formattedDate);
@@ -83,21 +61,13 @@ for (let i = 6; i >= 0; i--) {
 }
 // Helper function to format date as 'YYYY-MM-DD'
 function formatDate(date:Date) {
-  const year = date.getFullYear();
+  const year = date?.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date?.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 }
 
 
-    useEffect(() => {
-
-  destroyDataTables($('#dataTable'))
-    initDataTables($('#dataTable'),"Generated Links")
-  return () => {
-   destroyDataTables($('#dataTable'))
-  }
-}, [url])
 let tableContent = url && url?.traffic?.map((c:any ,i:number) => <AnalyticsTableData key={c?._id} url={c} index={i} />)
 const currentDay = currentDate?.getDate();
 const currentMonth = currentDate?.getMonth();
@@ -109,7 +79,7 @@ let dailyTraffic = 0;
 let weeklyTraffic = 0;
 let monthlyTraffic = 0;
 
-
+console.log(currentDay)
   url && url?.traffic?.forEach((t:any)=>{
  const entryDate = t?.createdAt;
   if (entryDate?.getDate() === currentDay) {
@@ -128,11 +98,7 @@ let monthlyTraffic = 0;
     monthlyTraffic++;
   }
 });
-const deviceTypeData = [
-    { label: 'Desktop', value: 50 },
-    { label: 'Mobile', value: 30 },
-    { label: 'Tablet', value: 20 }
-  ];
+
 
   function detectDeviceType(userAgent:string) {
     if (/mobile|iphone|ipad|ipod|android|blackberry|opera mini|iemobile|wpdesktop/i.test(userAgent)) {
@@ -164,7 +130,15 @@ for (const deviceType in deviceCounts) {
     });
   }
 }
+console.log(dataPoints)
+//   useEffect(() => {
 
+//   destroyDataTables($('#dataTable'))
+//     initDataTables($('#dataTable'),"Generated Links")
+//   return () => {
+//    destroyDataTables($('#dataTable'))
+//   }
+// }, [])
  return (
 	<MainBody>
 	<div className="container-fluid">
@@ -182,7 +156,7 @@ for (const deviceType in deviceCounts) {
 								</h2>
 								<p className="mb-0 fs-14">
 								
-									Total Links Generated
+									Total clicks
 								</p>	
 							</div>
 						</div>
@@ -252,17 +226,6 @@ for (const deviceType in deviceCounts) {
                             }
                         ]
                     }}
-                        // options={{
-                    // plugins:{
-                    //     title:{
-                    //         display:true,
-                    //         text:'helllo'
-                    //     },
-                    //     legend:{
-                    //         display:false
-                    //     }
-                    // }
-                    // }}
                         />
                          </div>
                 </div>
