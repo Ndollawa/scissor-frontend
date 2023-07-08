@@ -39,6 +39,8 @@ Scissor is a web application that provides a URL shortening service with custom 
 4. Generate visual reports to analyze the traffic trends over the last 7 days, current week, and month.
 5. Update or delete existing shortened URLs as needed.
 
+## email:guest@guest.com
+## password: guest123
 [Visit app Frontend](https://scissors-psi.vercel.app)
 
 

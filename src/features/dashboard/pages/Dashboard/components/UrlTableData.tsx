@@ -86,14 +86,14 @@ const UrlTableData = ({url,index,showEditForm}:any) => {
     }
 // 
 
-// useEffect(() => {
+useEffect(() => {
 
-//   destroyDataTables($('#dataTable'))
-//     initDataTables($('#dataTable'),"Generated Links")
-//   return () => {
-//    destroyDataTables($('#dataTable'))
-//   }
-// }, [url])
+  destroyDataTables($('#dataTable'))
+    initDataTables($('#dataTable'),"Generated Links")
+  return () => {
+   destroyDataTables($('#dataTable'))
+  }
+}, [url])
 const showDetails  = useMemo(()=>{ return async(shortURL:string)=>{
    // Generate QR code data URL
    const qrcodeDataUrl = await QRCode.toDataURL(shortURL);
@@ -101,7 +101,7 @@ const showDetails  = useMemo(()=>{ return async(shortURL:string)=>{
   Swal.fire({
     width: 400,
     padding: '3em',
-    html: `<div className="d-flex align-items-center justify-content-center flex-column m-auto">
+    html: `<div class="d-flex align-items-center justify-content-center flex-column">
     <img src=${qrcodeDataUrl} alt="QR Code" width="320" /> </div>`,
     // allowOutsideClick:false,
     // allowEscapeKey:false,
@@ -169,13 +169,13 @@ const copyLink = (link:string)=> {
         return (
             <tr key={url?._id}>
                     <td>{++index}</td>
-                    <td><BiGlobeAlt fontSize={'1rem'}/>&ensp; <a href={url.originalURL} target='_blank'>{url.originalURL}</a></td>
+                    <td><BiGlobeAlt fontSize={'1rem'}/>&ensp; <a className='d-flex w-40' href={url.originalURL} target='_blank'>{url.originalURL}</a></td>
                     <td>{urltatus}</td>
                     <td><i className="fa fa-users"></i>&ensp; ({url.clicks})</td>
                     <td>{created}</td>
                     <td>
-                    <div className="d-flex align-items-center flex-no-wrap gap-2">
-                          <div className="input-group input-group-sm"><input type='text' className='form-control' value={window.location.origin+"/"+url.shortURL} readOnly /><span className="input-group-text"><button type="button" className="btn btn-dark light shadow btn-xs sharp me-1 p-1" title='Click to copy'  onClick={()=>copyLink(window.location.origin+"/"+url.shortURL)}><BiCopyAlt fontSize={'1rem'} /> </button></span></div> 
+                    <div className="d-flex align-items-center w-100 flex-no-wrap gap-2"  style={{width:'500px'}}>
+                          <div className="input-group input-group-sm  w-100"><input type='text' className='form-control' value={window.location.origin+"/"+url.shortURL} readOnly /><span className="input-group-text"><button type="button" className="btn btn-dark light shadow btn-xs sharp me-1 p-1" title='Click to copy'  onClick={()=>copyLink(window.location.origin+"/"+url.shortURL)}><BiCopyAlt fontSize={'1rem'} /> </button></span></div> 
                             <Link type="button" className="btn btn-cyan light shadow btn-xs sharp me-1 p-1" title='View analytic' to={`/dashboard/url/${url?._id}`} > <IoAnalyticsSharp fontSize={'1rem'} /></Link>
                             <button type="button" className="btn btn-warning light shadow btn-xs sharp me-1 p-1" title='Click to copy'  onClick={()=>share(urlData)}> <BiShareAlt fontSize={'1rem'} /> </button>
                              <button type="button" className="btn btn-success light shadow btn-xs sharp me-1 p-1" title='Show QRcode'     onClick={()=>showDetails(window.location.origin+"/"+url?.shortURL)}><HiQrCode fontSize={'1rem'}/></button>

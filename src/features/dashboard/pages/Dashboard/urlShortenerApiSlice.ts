@@ -9,9 +9,15 @@ import { urlProps } from "../../../../app/utils/props/urlProps";
 // interface urlProp extends  urlProps{}
 
 
-const urlAdapter = createEntityAdapter({
-    // sortComparer: (a:urlProps, b:urlProps) => (a?.createdAt === b?.createdAt) ? 0 : a.createdAt ? 1 : -1
-})
+
+    const urlAdapter = createEntityAdapter({
+        sortComparer: (a:any, b:any) => {
+          const createdAtA = a?.createdAt || 0;
+          const createdAtB = b?.createdAt || 0;
+          return createdAtB - createdAtA; // Sort in descending order
+        },
+      });
+
 
 const initialState = urlAdapter.getInitialState()
 

@@ -14,7 +14,7 @@ import { BiLinkAlt } from 'react-icons/bi'
 import { FaUsers } from 'react-icons/fa'
 import { MdTraffic } from 'react-icons/md'
 import { HiUsers } from 'react-icons/hi2'
-import initDataTables, { destroyDataTables } from '../../../../app/utils/initDataTables'
+// import useDataTables from '../../../../app/utils/initDataTables'
 
 
 
@@ -90,15 +90,8 @@ let monthlyTraffic = 0;
     monthlyTraffic++;
   }
 }));
-
-// useEffect(() => {
-
-//   destroyDataTables($('#dataTable'))
-//     initDataTables($('#dataTable'),"Generated Links")
-//   return () => {
-//    destroyDataTables($('#dataTable'))
-//   }
-// }, [])
+// const table = document.getElementById('dataTable')!
+// useDataTables(table,"Generated Links")
 
  return (
 	<>
@@ -177,17 +170,17 @@ let monthlyTraffic = 0;
 					<CreateUrlModal/>
 					<EditUrlForm modalData={modalData}/>
 								</div>
-						<div className="table-responsive table-scrollable">
+						<div className="table-responsive table-scrollable w-100 d-flex">
 									<table id="dataTable" className="table table-striped mt-10 table-bordered table-hover table-checkable order-column valign-middle border mb-0 align-items-centerid" style={{minWidth: '845px'}}>
 										<thead>
 											<tr>
 												<th>S/N</th>
-												<th>Original URL</th>
+												<th style={{maxWidth:'150px'}}>Original URL</th>
 												{/* <th>Description</th> */}
 												<th>Status</th>
 												<th>Click / Views</th>
 												<th>Date Created</th>
-												<th>Action</th>
+												<th style={{width:'550px'}}>Action</th>
 											</tr>
 										</thead>
 										<tbody>

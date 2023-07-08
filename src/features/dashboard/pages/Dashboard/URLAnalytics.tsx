@@ -15,7 +15,7 @@ import { BiLinkAlt } from 'react-icons/bi'
 import { FaUsers } from 'react-icons/fa'
 import { MdTraffic } from 'react-icons/md'
 import { HiUsers } from 'react-icons/hi2'
-import initDataTables, { destroyDataTables } from '../../../../app/utils/initDataTables'
+// import useDataTables from '../../../../app/utils/initDataTables'
 
 
 
@@ -129,15 +129,9 @@ for (const deviceType in deviceCounts) {
     });
   }
 }
-console.log(dataPoints)
-//   useEffect(() => {
-
-//   destroyDataTables($('#dataTable'))
-//     initDataTables($('#dataTable'),"Generated Links")
-//   return () => {
-//    destroyDataTables($('#dataTable'))
-//   }
-// }, [])
+// const table = document.getElementById('dataTable')!
+// console.log(table)
+// useDataTables(table,"Generated Links")
  return (
 	<MainBody>
 	<div className="container-fluid">
@@ -246,8 +240,8 @@ console.log(dataPoints)
 										<thead>
 											<tr>
 												<th>S/N</th>
-												<th>Referred From</th>
-												<th>User Agent</th>
+												<th style={{maxWidth:'250px'}}>Referred From</th>
+												<th style={{maxWidth:'250px'}}>User Agent</th>
 												<th>Ip Address</th>
 												<th>Region</th>
 												<th>country</th>
