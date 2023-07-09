@@ -91,11 +91,11 @@ console.log(data)
         {currentUser._id?
                      <NavDropdown title={<div className='d-flex gap-2 align-items-center text-white'>{currentUser?.fullName || currentUser?.username}<img src={userImage} width='30' height={'30'} className='border-color-primary object-fit-cover border-1 rounded-circle' alt='avatar'/></div>} id="basic-nav-dropdown">
               <NavDropdown.Item href="/dashboard"><RxDashboard fontSize={'1.2rem'}/> Dashboard</NavDropdown.Item>
-              <NavDropdown.Item href="/dashboard/profile">
+              {/* <NavDropdown.Item href="/dashboard/profile">
                <FaUserCog fontSize={'1.2rem'}/> My Profile
-              </NavDropdown.Item>
+              </NavDropdown.Item> */}
               {/* <NavDropdown.Item href="/dashboard/messenger"><HiOutlineChatBubbleLeftRight fontSize={'1.2rem'}/> Messenger</NavDropdown.Item> */}
-              <NavDropdown.Item href="/dashboard/profile-settings"><FaCogs fontSize={'1.2rem'}/> Settings</NavDropdown.Item>
+              <NavDropdown.Item href="/dashboard/profile/edit"><FaCogs fontSize={'1.2rem'}/> Settings</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onclick={()=>sendLogout()}><IoLogOutOutline fontSize={'1.2rem'}/>
                 Logout
