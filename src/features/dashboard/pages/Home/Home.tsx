@@ -132,7 +132,7 @@ console.log(data)
         </div>
       </div>
       {urlOption && <div className="form-group col-lg-6 col-sm-7 d-flex justify-content-center">
-        <input className="form-control rounded-pill mt-4" onChange={(e)=>setCustomUrl(e.target.value)} placeholder='Enter custom URL @example myurl'/>
+        <input className="form-control w-80  mx-auto rounded-pill mt-4" onChange={(e)=>setCustomUrl(e.target.value)} placeholder='Enter custom URL @example myurl'/>
       </div> }
       <div className=''>
         <span className='text-white fs-13 fw-bold mx-2'>Use custom URL?</span>
