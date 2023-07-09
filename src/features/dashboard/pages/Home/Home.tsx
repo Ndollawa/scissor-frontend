@@ -131,7 +131,7 @@ console.log(data)
         </div>
         </div>
       </div>
-      {urlOption && <div className="form-group col-lg-6 col-sm-9 m-auto">
+      {urlOption && <div className="form-group col-lg-6 col-sm-7 d-flex justify-content-center">
         <input className="form-control rounded-pill mt-4" onChange={(e)=>setCustomUrl(e.target.value)} placeholder='Enter custom URL @example myurl'/>
       </div> }
       <div className=''>
@@ -161,7 +161,7 @@ console.log(data)
             <div className="row col-md-6">
             <div className="col-md-4 col-sm-12">
                 <div className="card px-2 py-4 d-flex justify-content-center"><div className="  p-2 fs-15">
-                  <h4 className='text-secondary fw-900'>Custom URL Shortening</h4>
+                  <h4 className='text-secondary fw-900 text-center'>Custom URL Shortening</h4>
                   <p className="paragraph s-card ">With Scissor, you have the power to create custom, branded short links. Whether you want to promote your brand or make your links more memorable, Scissor enables you to choose your own unique URL. Say goodbye to long and complex URLs, and say hello to concise and customized links that reflect your brand identity.
 </p>
                    </div>
@@ -171,7 +171,7 @@ console.log(data)
             </div>
             <div className="col-md-4 col-sm-12">
                 <div className="card px-2 py-4 d-flex justify-content-center "><div className=" p-2 fs-15">
-                  <h4 className="text-secondary fw-900">
+                  <h4 className="text-secondary fw-900 text-center">
                   Analytics and Insights
                   </h4>
                  <p className='s-card '>Gain valuable insights into your link performance with Scissor's robust analytics. Track the number of clicks, analyze geographic data, and understand user engagement. With our comprehensive analytics dashboard, you can measure the effectiveness of your campaigns, identify trends, and make data-driven decisions to optimize your marketing strategies.
@@ -182,7 +182,7 @@ console.log(data)
             </div>
             <div className="col-md-4 col-sm-12">
                 <div className="card px-2 py-4 d-flex justify-content-center  "><div className=" p-2 fs-15">
-                    <h4 className="text-secondary fw-900">
+                    <h4 className="text-secondary fw-900 text-center">
                     Advanced Link Management
                   </h4> 
                   <p className="paragraph s-card">Scissor offers advanced link management features to streamline your workflow. Organize your links into folders, categorize them based on campaigns or channels, and easily search for specific links. Take control of your link portfolio and efficiently manage your shortened URLs with Scissor's intuitive interface.
